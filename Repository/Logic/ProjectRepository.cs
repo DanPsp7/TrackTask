@@ -5,7 +5,7 @@ using TaskTracker.Models;
 
 namespace TaskTracker.Repository;
 
-public class ProjectRepository
+public class ProjectRepository : IProjectRepository
 {
     private readonly TaskTrackerContext _context;
 
@@ -14,13 +14,13 @@ public class ProjectRepository
         _context = context; 
     }
 
-    public async Task Create(Project project)
+    public async Task Create(ProjectDTO projectDto)
     {
-        _context.Add(project);
+        _context.Add(projectDto);
         await _context.SaveChangesAsync();
     }
 
-    public async Task<List<Project>> Read()
+    public async Task<List<Project>> Get()
     {
         return await _context.Projects.ToListAsync();
     }
